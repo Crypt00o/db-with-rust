@@ -1,0 +1,27 @@
+[package]
+name = "db-with-rust"
+version = "0.1.0"
+edition = "2021"
+authors = ["0xCrypt00o"]
+repositry = "https+git://github.com/Crypt00o/db-with-rust"
+
+
+[dependencies]
+
+#for json 
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# for async rust 
+tokio = { version = "1" , features = ["full"] }
+
+#for dotenv
+dotenv = { version = "0.15.0"}
+
+
+#for database drivers 
+sqlx = {version = "0.6" , features = ["runtime-tokio-native-tls","mysql"] }
+
+#for uuid generateing 
+uuid = { version = "1.2.2" , features = ["v4","fast-rng","macro-diagnostics"] }
+
