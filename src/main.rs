@@ -38,16 +38,19 @@ async fn main(){
     
 
     // generate a pool client to use it for connecting 
-
     
     let pool_client=DBClient::new(mysql_host, mysql_port, mysql_user, mysql_pass, mysql_database).await;
     
     // use pool client for connecting db and get time  
+    
     match pool_client.test_connection().await {
-        Ok(())=>(),
-        Err(err)=>panic!("{}",err)
+        Ok(connection_result)=>println!("[+] Connection Established to DB Successfully  : {}",connection_result),
+        Err(err)=>panic!("Error ! : {}",err)
     };
 
+    // closeing pool Connection 
+
+    pool_client.close();
 
 
 

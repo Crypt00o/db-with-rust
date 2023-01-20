@@ -1,6 +1,6 @@
 
-use sqlx::{Error,MySql,Pool,query};
-
+use sqlx::{Error,MySql,Pool,query, Row};
+use sqlx::types::chrono::{Utc,DateTime};
 
     pub struct DBClient{
        pub pool:Pool<MySql> 
@@ -35,22 +35,25 @@ use sqlx::{Error,MySql,Pool,query};
         }
 
 
-        pub async fn test_connection(&self)->Result<(),Error>{
+        pub async fn test_connection(&self)->Result<String,Error>{
  
 
                 match  query("SELECT NOW(); ").fetch_one(&self.pool).await {
-                    Ok(_row)=>println!("[+] Connected to Database Successfully "),
-                    Err(err)=>return Err(err)
-                }
+                    //Ok(_row)=>println!("[+] Connected to Database Successfully "),
+                    Ok(row)=>{ 
+                        let connecting_time:String= row.get::<DateTime<Utc>,usize>(0).to_rfc2822();
+                        return Ok(connecting_time);
 
-         
-            
-                 return Ok(());
+                    },
+                    Err(err)=>return Err(err)
+                };
+
+        
         
         }
 
-        pub fn close(&self)->(){
-            self.close();
+        pub  fn close(&self)->(){
+            self.pool.close();
             return;
         }
 

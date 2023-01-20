@@ -20,7 +20,7 @@ dotenv = { version = "0.15.0"}
 
 
 #for database drivers 
-sqlx = {version = "0.6" , features = ["runtime-tokio-native-tls","mysql"] }
+sqlx = {version = "0.6" , features = ["runtime-tokio-native-tls","mysql","migrate","json","chrono","uuid"] }
 
 #for uuid generateing 
 uuid = { version = "1.2.2" , features = ["v4","fast-rng","macro-diagnostics"] }
